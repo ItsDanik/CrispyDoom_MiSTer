@@ -1,0 +1,10 @@
+# Game data is copyrighted and never committed
+*.WAD
+*.wad
+
+# Logs of builds
+*.log
+
+# Build outputs
+/build/
+/dist/

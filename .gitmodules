@@ -1,0 +1,8 @@
+[submodule "hybrid"]
+	path = hybrid
+	url = https://github.com/ItsDanik/Hybrid_MiSTer.git
+	branch = main
+[submodule "crispydoom"]
+	path = crispydoom
+	url = https://github.com/ItsDanik/crispy-doom.git
+	branch = mister

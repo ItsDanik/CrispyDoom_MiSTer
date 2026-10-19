@@ -1,0 +1,3 @@
+set_global_assignment -name QIP_FILE ../hybrid/rtl/hybrid.qip
+set_global_assignment -name SDC_FILE CrispyDoom.sdc
+set_global_assignment -name SYSTEMVERILOG_FILE CrispyDoom.sv
