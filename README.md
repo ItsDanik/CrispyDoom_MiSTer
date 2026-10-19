@@ -24,7 +24,7 @@ With `update_all` (Downloader 2.4 or newer, which update_all keeps up to date):
 By hand:
 
 1. Download the newest `CrispyDoom_YYYYMMDD.zip` from [releases](releases/) and extract it to the root of your SD card (`/media/fat`). That gives you:
-   - `_Other/dnk-Doom.mgl`, `dnk-SIGIL.mgl`, `dnk-SIGIL II.mgl`, `dnk-Doom II.mgl`, `dnk-No Rest for the Living.mgl`, `dnk-Master Levels.mgl`, `dnk-TNT Evilution.mgl`, `dnk-Plutonia Experiment.mgl`, `dnk-Heretic.mgl`, `dnk-Hexen.mgl`, `dnk-Deathkings of the Dark Citadel.mgl` and `dnk-Strife.mgl`, the games' entries in the `Other` menu
+   - `_Other/dnk-Doom.mgl`, `dnk-Doom - SIGIL.mgl`, `dnk-Doom - SIGIL II.mgl`, `dnk-Doom II.mgl`, `dnk-Doom II - Master Levels.mgl`, `dnk-Doom II - No Rest for the Living.mgl`, `dnk-Final Doom - Plutonia Experiment.mgl`, `dnk-Final Doom - TNT Evilution.mgl`, `dnk-Heretic.mgl`, `dnk-Hexen.mgl`, `dnk-Hexen - Deathkings.mgl` and `dnk-Strife.mgl`, the games' entries in the `Other` menu, each expansion next to its game
    - `_Other/dnk/dnk-CrispyDoom_YYYYMMDD.rbf`, the FPGA core
    - `games/dnk/CrispyDoom/`, the game binary and its launch script
    - `Scripts/danik_hybrid_ports.sh`, the launcher (from [Hybrid_MiSTer](https://github.com/ItsDanik/Hybrid_MiSTer))

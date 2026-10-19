@@ -4,14 +4,14 @@
 # all). The zip has these lines as games/dnk/CrispyDoom/games.txt, from which the
 # database makes the launcher's catalogue (hybrid/launcher/distribution.py).
 doom|Doom
-sigil|SIGIL
-sigil2|SIGIL II
+sigil|Doom - SIGIL
+sigil2|Doom - SIGIL II
 doom2|Doom II
-nerve|No Rest for the Living
-master|Master Levels
-tnt|TNT Evilution
-plutonia|Plutonia Experiment
+nerve|Doom II - No Rest for the Living
+master|Doom II - Master Levels
+tnt|Final Doom - TNT Evilution
+plutonia|Final Doom - Plutonia Experiment
 heretic|Heretic
 hexen|Hexen
-hexdd|Deathkings of the Dark Citadel
+hexdd|Hexen - Deathkings
 strife|Strife
