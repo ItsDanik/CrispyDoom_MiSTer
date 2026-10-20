@@ -100,7 +100,8 @@ localparam CONF_STR = {
 	"h6O[96],MT32-pi,On,Off;",
 	"h6O[97],MT32-pi Synth,SoundFont,MT-32;",
 	"h6O[99:98],MT32-pi ROM,MT-32 v1,MT-32 v2,CM-32L;",
-	"h6O[102:100],MT32-pi SoundFont,0,1,2,3,4,5,6,7;",
+	"h6O[103:100],MT32-pi SoundFont,Pi's own,0,1,2,3,4,5,6,7;",
+	"h6T[104],Reset Hanging Notes;",
 	// the gamepad's rumble for the player's hits, shots and landings
 	"O[27],Rumble,On,Off;",
 	// Cheats: options that stay on, triggers that do something once
@@ -124,7 +125,8 @@ localparam CONF_STR = {
 	// Main_MiSTer's info box: the MT32-pi's synth (hybrid_host's `info`)
 	"I,MT32-pi: SoundFont 0,MT32-pi: SoundFont 1,MT32-pi: SoundFont 2,MT32-pi: SoundFont 3,",
 	"MT32-pi: SoundFont 4,MT32-pi: SoundFont 5,MT32-pi: SoundFont 6,MT32-pi: SoundFont 7,",
-	"MT32-pi: MT-32 v1,MT32-pi: MT-32 v2,MT32-pi: CM-32L,MT32-pi: unknown synth;",
+	"MT32-pi: MT-32 v1,MT32-pi: MT-32 v2,MT32-pi: CM-32L,MT32-pi: unknown synth,",
+	"MT32-pi: SoundFont 8 or later;",
 	"V,v",`BUILD_DATE
 };
 
