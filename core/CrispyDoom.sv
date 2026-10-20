@@ -22,7 +22,6 @@ module emu
 ///////// Default values for ports not used in this core /////////
 
 assign ADC_BUS  = 'Z;
-assign USER_OUT = '1;
 assign {UART_RTS, UART_TXD, UART_DTR} = 0;
 assign {SD_SCK, SD_MOSI, SD_CS} = 'Z;
 assign {SDRAM_DQ, SDRAM_A, SDRAM_BA, SDRAM_CLK, SDRAM_CKE, SDRAM_DQML, SDRAM_DQMH, SDRAM_nWE, SDRAM_nCAS, SDRAM_nRAS, SDRAM_nCS} = 'Z;
@@ -95,6 +94,13 @@ localparam CONF_STR = {
 	// The game's options (crispydoom/src/mister/mister_port.c)
 	"O[51:50],Resolution,320x240,640x240,320x200,640x200;",
 	"O[26],FM Music,FPGA,Software;",
+	// the music on an MT32-pi instead, while one is connected (menu mask
+	// bit 6; crispydoom/src/i_oplmusic.c, hybrid/README.md "MIDI and the
+	// MT32-pi")
+	"h6O[96],MT32-pi,On,Off;",
+	"h6O[97],MT32-pi Synth,SoundFont,MT-32;",
+	"h6O[99:98],MT32-pi ROM,MT-32 v1,MT-32 v2,CM-32L;",
+	"h6O[102:100],MT32-pi SoundFont,0,1,2,3,4,5,6,7;",
 	// the gamepad's rumble for the player's hits, shots and landings
 	"O[27],Rumble,On,Off;",
 	// Cheats: options that stay on, triggers that do something once
@@ -115,12 +121,19 @@ localparam CONF_STR = {
 	// R2 fires and L2 runs as well (crispydoom/src/i_joystick.c)
 	"J1,Fire,Use,Run,Next Weapon,Prev Weapon,Strafe,Map,Menu,Menu OK,Menu Back;",
 	"jn,R,B,A,Y,X,L,Select,Start;",
+	// Main_MiSTer's info box: the MT32-pi's synth (hybrid_host's `info`)
+	"I,MT32-pi: SoundFont 0,MT32-pi: SoundFont 1,MT32-pi: SoundFont 2,MT32-pi: SoundFont 3,",
+	"MT32-pi: SoundFont 4,MT32-pi: SoundFont 5,MT32-pi: SoundFont 6,MT32-pi: SoundFont 7,",
+	"MT32-pi: MT-32 v1,MT32-pi: MT-32 v2,MT32-pi: CM-32L,MT32-pi: unknown synth;",
 	"V,v",`BUILD_DATE
 };
 
 wire         forced_scandoubler;
 wire         direct_video;
 wire   [3:0] menumask;
+wire         mt32_on;
+wire         info_req;
+wire   [7:0] info;
 wire   [1:0] buttons;
 wire [127:0] status;
 wire  [10:0] ps2_key;
@@ -142,7 +155,10 @@ hps_io #(.CONF_STR(CONF_STR)) hps_io
 
 	.buttons(buttons),
 	.status(status),
-	.status_menumask({10'd0, direct_video, forced_scandoubler, menumask}),
+	// bit 6: an MT32-pi is connected ("h6": its lines)
+	.status_menumask({9'd0, mt32_on, direct_video, forced_scandoubler, menumask}),
+	.info_req(info_req),
+	.info(info),
 
 	.joystick_0(joystick_0),
 	.joystick_1(joystick_1),
@@ -239,7 +255,15 @@ hybrid_host host
 	.menumask(menumask),
 
 	.audio_l(AUDIO_L),
-	.audio_r(AUDIO_R)
+	.audio_r(AUDIO_R),
+
+	// an MT32-pi on the user port (MIDI music, host version 15)
+	.clk_audio(CLK_AUDIO),
+	.user_in(USER_IN),
+	.user_out(USER_OUT),
+	.mt32_on(mt32_on),
+	.info_req(info_req),
+	.info(info)
 );
 
 assign DDRAM_CLK = clk_sys;
