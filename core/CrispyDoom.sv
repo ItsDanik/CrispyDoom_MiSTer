@@ -95,6 +95,8 @@ localparam CONF_STR = {
 	// The game's options (crispydoom/src/mister/mister_port.c)
 	"O[51:50],Resolution,320x240,640x240,320x200,640x200;",
 	"O[26],FM Music,FPGA,Software;",
+	// the gamepad's rumble for the player's hits, shots and landings
+	"O[27],Rumble,On,Off;",
 	// Cheats: options that stay on, triggers that do something once
 	// (MH_OSDTriggers()). Buddha and Infinite Ammo are the port's own.
 	"P2,Cheats;",
