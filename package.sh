@@ -51,6 +51,18 @@ done
 # screen offers what that has) and for the launcher without one
 cp -r package/games/CrispyDoom/. "$G/"
 grep -v '^#' package/games.txt | grep '|' > "$G/games.txt"
+# each game's logo, shown at its start (host version 17, hybrid/docs/game_logo.md):
+# package/logos/<id>.png, 440x200, as logos/<id>.mhl next to the programs
+mkdir "$G/logos"
+grep -v '^#' package/games.txt | grep '|' | while IFS='|' read -r id title; do
+    [ -f "package/logos/$id.png" ] || { echo "package/logos/$id.png is missing: every game of package/games.txt has its logo, 440x200 (hybrid/docs/game_logo.md)" >&2; exit 1; }
+    python3 hybrid/tools/make_logo.py "package/logos/$id.png" "$G/logos/$id.mhl" > /dev/null
+done
+# the SoundFont of the core's MIDI synthesizer, for a core that has it
+# (MIDI_SYNTH 1): fetched at its pinned version, never committed
+if grep -q '^localparam MIDI_SYNTH = 1;' core/CrispyDoom.sv; then
+    sh hybrid/tools/soundfont.sh "$OUT/games/dnk/SoundFonts"
+fi
 cp build/mister/src/crispy-doom "$G/CrispyDoom"
 cp build/mister/mh_message "$G/mh_message"
 # GAME: files the binary needs next to it (never game data): Crispy Heretic,
