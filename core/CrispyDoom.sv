@@ -111,6 +111,11 @@ localparam CONF_STR = {
 	"h6T[104],Reset Hanging Notes;",
 	// the gamepad's rumble for the player's hits, shots and landings
 	"O[27],Rumble,On,Off;",
+	// the right stick's turn (left and right) and look (up and down), 150%
+	// the speed up to release 20261023; Strife's look is digital, so the
+	// game greys that line out there ("D1", MiSTer_DigitalLook())
+	"O[39:37],Turn Sensitivity,100%,125%,150%,175%,200%,25%,50%,75%;",
+	"D1O[42:40],Look Sensitivity,100%,125%,150%,175%,200%,25%,50%,75%;",
 	// Cheats: options that stay on, triggers that do something once
 	// (MH_OSDTriggers()). Buddha and Infinite Ammo are the port's own.
 	"P2,Cheats;",
