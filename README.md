@@ -45,7 +45,7 @@ With `update_all` (Downloader 2.4 or newer, which update_all keeps up to date):
    | Hexen | `HEXEN.WAD` |
    | Deathkings of the Dark Citadel | `HEXDD.WAD` and the `HEXEN.WAD` of Hexen 1.1 |
    | Strife | `STRIFE1.WAD` and `VOICES.WAD` (the voices; Strife plays without them) (shareware: `STRIFE0.WAD`) |
-5. Load the game from the `Other` menu, e.g. **dnk-Doom**.
+5. Load the game from the `Other` menu, e.g. **dnk-Doom**, or from the `Hybrid Ports` folder if you moved the games there in the launcher.
 
 > [!NOTE]
 > The game data can go on a USB drive instead, into the same folder there (`/media/usb0/games/dnk/CrispyDoom/`): the game looks for it there first, and then keeps its settings and saved games there as well. Everything else stays on the SD card.
