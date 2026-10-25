@@ -112,8 +112,9 @@ localparam CONF_STR = {
 	// the gamepad's rumble for the player's hits, shots and landings
 	"O[27],Rumble,On,Off;",
 	// the right stick's turn (left and right) and look (up and down), 150%
-	// the speed up to release 20261023; Strife's look is digital, so the
-	// game greys that line out there ("D1", MiSTer_DigitalLook())
+	// the speed up to release 20261023. "D1": Strife greyed the look's line
+	// out while its look was digital (up to release 20261024); no game sets
+	// the bit any more, the "D1" can go at the core's next build
 	"O[39:37],Turn Sensitivity,100%,125%,150%,175%,200%,25%,50%,75%;",
 	"D1O[42:40],Look Sensitivity,100%,125%,150%,175%,200%,25%,50%,75%;",
 	// Cheats: options that stay on, triggers that do something once

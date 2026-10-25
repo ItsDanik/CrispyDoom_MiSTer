@@ -66,7 +66,7 @@ Each expansion has its own menu entry: it starts at its own levels (New Game goe
 | SoundFont | **Default**: GeneralUser GS, which comes with the port<br>**1 to 7**: your own `.sf2` files in `games/dnk/SoundFonts/`, in the order of their names, or as the MIDI Player core sets them<br><br>A SoundFont that is missing, damaged or too big (over 64 MB of samples) is said in the MiSTer's info box, and the music goes to the FM chip |
 | MT32-pi | **On**: the music is played on the MT32-pi (default)<br>**Off**: as without it<br>**MT32-pi Synth**: SoundFont (default) or MT-32 (it needs the MT-32 ROMs on the Pi's card)<br>**MT32-pi ROM**: MT-32 v1, MT-32 v2 or CM-32L<br>**MT32-pi SoundFont**: Pi's own (default) or one of the first eight on its card, 0 to 7<br>**Reset Hanging Notes**: the Pi stops all its notes, the music goes on<br><br>Only there while an [MT32-pi](https://github.com/dwhinham/mt32-pi) answers on the MiSTer's user port. The game's *Music Volume* sets its level. Applies at once |
 | Rumble | **On**: when you are hurt, fire, land from a fall, and in Hexen's earthquakes (default)<br>**Off**: never<br><br>Every controller that can rumble does; not in demos |
-| Turn Sensitivity, Look Sensitivity | **Turn Sensitivity**: how fast the right stick turns<br>**Look Sensitivity**: how fast it looks up and down (greyed out in Strife)<br><br>100% (default) to 200% in steps of 25%, then 25% to 75%; 150% is the speed of the releases up to 20261023. Applies at once |
+| Turn Sensitivity, Look Sensitivity | **Turn Sensitivity**: how fast the right stick turns<br>**Look Sensitivity**: how fast it looks up and down<br><br>100% (default) to 200% in steps of 25%, then 25% to 75%; 150% is the speed of the releases up to 20261023. Applies at once |
 | Cheats | **God Mode** (IDDQD): nothing hurts you<br>**No Clipping** (IDCLIP): through walls<br>**Infinite Ammo**: firing uses none<br>**Buddha**: never below 1% health<br>**No Target**: the monsters do not notice you<br>**Give All** (IDKFA): every weapon, full ammo, all keys and armor<br>**Kill All Monsters**: every monster of the level dies<br>**Next Level**: completes the level<br>**Full Map** (IDDT): the whole automap, then its things, then off<br><br>In every game, with its own cheat where it has one. Strife's Next Level goes to the map with the next number, which can skip part of the story. Not in demos or multiplayer |
 | Save Diagnostic Report | the last line: see [If something is wrong](#if-something-is-wrong) |
 
@@ -111,8 +111,9 @@ In Heretic, Hexen and Strife the d-pad is for the inventory, and the left stick 
 |---|---|---|---|
 | D-pad Left / Right | choose an artifact | choose an artifact (`[` / `]`) | choose an item (`[` / `]`) |
 | D-pad Down | use it | use it (Enter) | use it (Enter) |
-| D-pad Up | fly up (with the Wings of Wrath) | fly up (with the Wings of Wrath) | the mission objectives, held (`W`) |
-| L2 | fly down | fly down | run (held) |
+| D-pad Up | fly up (with the Wings of Wrath) | fly up (with the Wings of Wrath) | the mission objectives, held (`W`), not in menus and dialogues |
+| A (Xbox B / PlayStation Circle) | fly down (*Run* in the OSD) | fly down (*Run* in the OSD) | run (held) |
+| L2 | run (held) | run (held) | run (held) |
 | X (Xbox Y / PlayStation Triangle) | previous weapon | jump (`/`; *Prev Weapon* in the OSD) | jump (`A`; *Prev Weapon* in the OSD) |
 | Y (Xbox X / PlayStation Square) | next weapon | goes round the weapons | goes round the weapons |
 | Keyboard only | | | `K` the keys, `Z` the inventory |
