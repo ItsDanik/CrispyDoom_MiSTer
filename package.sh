@@ -3,9 +3,11 @@
 # in the layout of the hybrid ports (hybrid/README.md, "Naming and layout"):
 #   _Other/dnk-<title>.mgl             a menu entry for each game (package/games.txt)
 #   _Other/dnk/dnk-CrispyDoom_<date>.rbf    the core, not in the menu itself
-#   games/dnk/CrispyDoom/                   the game, its pictures for tty2oled+'s
-#                                       display in oled/ and their details in
-#                                       info.txt
+#   games/dnk/CrispyDoom/                   the game, its logos in logos/, its
+#                                       pictures for tty2oled+'s display in
+#                                       oled/ and their details in info.txt
+#   games/dnk/SoundFonts/               GeneralUser GS and its licence, if the
+#                                       games play MIDI (MIDI_SYNTH 1)
 #   Scripts/danik_hybrid_ports.sh       the launcher, and its screen in
 #   Scripts/.danik_hybrid_ports/        (copies of both with the game: the
 #                                       newest one installed is the one used)

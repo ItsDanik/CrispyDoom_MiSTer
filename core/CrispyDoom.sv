@@ -63,6 +63,11 @@ localparam CONF_STR = {
 	"P1O[68:64],Horizontal Size,0,+1,+2,+3,+4,+5,+6,+7,-24,-23,-22,-21,-20,-19,-18,-17,-16,-15,-14,-13,-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1;",
 	"P1O[72:69],Horizontal Pos,0,+1,+2,+3,+4,+5,+6,+7,-8,-7,-6,-5,-4,-3,-2,-1;",
 	"P1O[76:73],Vertical Pos,0,+1,+2,+3,+4,+5,+6,+7,-8,-7,-6,-5,-4,-3,-2,-1;",
+	// the flicker filter of an interlaced picture (host version 18,
+	// hybrid/README.md "Video modes"): hidden in a core without it (FLICKER 0,
+	// menu mask bit 9), greyed out while the picture is not interlaced (bit 10)
+	"H9P1-;",
+	"H9DAP1O[106:105],Flicker Filter,Light,Strong,Off;",
 	// The HUD margins (MH_HudMargins(), hybrid/README.md "HUD margins"):
 	// pixels between the HUD and the top / bottom edge of a 240-line screen,
 	// 0 the default (host version 16; up to 15 entry 0 was 10). Doom's
@@ -112,11 +117,10 @@ localparam CONF_STR = {
 	// the gamepad's rumble for the player's hits, shots and landings
 	"O[27],Rumble,On,Off;",
 	// the right stick's turn (left and right) and look (up and down), 150%
-	// the speed up to release 20261023. "D1": Strife greyed the look's line
-	// out while its look was digital (up to release 20261024); no game sets
-	// the bit any more, the "D1" can go at the core's next build
+	// the speed up to release 20261023 (Strife greyed the look's line out
+	// with menu mask bit 1 while its look was digital, up to release 20261024)
 	"O[39:37],Turn Sensitivity,100%,125%,150%,175%,200%,25%,50%,75%;",
-	"D1O[42:40],Look Sensitivity,100%,125%,150%,175%,200%,25%,50%,75%;",
+	"O[42:40],Look Sensitivity,100%,125%,150%,175%,200%,25%,50%,75%;",
 	// Cheats: options that stay on, triggers that do something once
 	// (MH_OSDTriggers()). Buddha and Infinite Ammo are the port's own.
 	"P2,Cheats;",
@@ -131,10 +135,15 @@ localparam CONF_STR = {
 	"P2T[57],Kill All Monsters;",
 	"P2T[58],Next Level;",
 	"P2T[59],Full Map (IDDT);",
-	"-;",
+	// The game's reset, as in every other MiSTer core (host version 18; the
+	// USER button does the same): hybrid_host shows its picture at once and
+	// the library ends the game, which the launch script starts again. Bit 0
+	// is Main_MiSTer's reset (R0); hybrid_host takes it from the status.
 	// The last line of every core's menu (host version 16, hybrid/docs/diagnostics.md):
 	// the library saves a report of the setup and the last 60 seconds in
 	// games/dnk/diagnostics/ (bit 16, flipped by hybrid_host at each pulse)
+	"-;",
+	"R0,Reset;",
 	"T[16],Save Diagnostic Report;",
 	// R2 fires and L2 runs as well (crispydoom/src/i_joystick.c)
 	"J1,Fire,Use,Run,Next Weapon,Prev Weapon,Strafe,Map,Menu,Menu OK,Menu Back;",
@@ -165,9 +174,21 @@ localparam [1:0] HUD_EDGES = 2'b11;
 // with the Music and SoundFont lines above.
 localparam MIDI_SYNTH = 1;
 
+// 1 in every core: the core's intro when it starts, which the game waits
+// for, and its picture fading out before the game's first frame (host
+// version 18; 0 only in a frontend, hybrid/docs/dnklauncher.md).
+localparam INTRO = 1;
+// 1 in a core with a 640x400 or 640x480 mode (interlaced at 15kHz): the
+// OSD's Flicker Filter line (host version 18). Doom's modes are 320 and 640
+// by 200 and 240, never interlaced: 0 hides the line and saves 12 M10K blocks
+localparam FLICKER = 0;
+
 wire         forced_scandoubler;
 wire         direct_video;
 wire   [3:0] menumask;
+wire         lace;
+wire [127:0] status_in;
+wire         status_set;
 wire         mt32_on;
 wire         info_req;
 wire   [7:0] info;
@@ -192,10 +213,13 @@ hps_io #(.CONF_STR(CONF_STR)) hps_io
 
 	.buttons(buttons),
 	.status(status),
-	// bit 6: an MT32-pi is connected ("h6": its lines)
+	// the program sets the OSD's Flicker Filter line (MH_SetFlickerFilter())
+	.status_in(status_in),
+	.status_set(status_set),
 	// bit 6: an MT32-pi is connected ("h6": its lines); 7 and 8: no HUD at
-	// the top / the bottom ("D7", "D8": its line greyed out)
-	.status_menumask({7'd0, ~HUD_EDGES[1], ~HUD_EDGES[0], mt32_on, direct_video, forced_scandoubler, menumask}),
+	// the top / the bottom ("D7", "D8": its line greyed out); 9: no flicker
+	// filter ("H9"), 10: the picture is not interlaced ("DA": its line greyed out)
+	.status_menumask({5'd0, ~lace, FLICKER == 0, ~HUD_EDGES[1], ~HUD_EDGES[0], mt32_on, direct_video, forced_scandoubler, menumask}),
 	.info_req(info_req),
 	.info(info),
 
@@ -246,7 +270,7 @@ wire       hires, fast, f1;
 // `fast` follows vga31, and falls only after the output has gone quiet
 assign VGA_DISABLE = fast & ~forced_scandoubler;
 
-hybrid_host #(.MIDI_SYNTH(MIDI_SYNTH)) host
+hybrid_host #(.MIDI_SYNTH(MIDI_SYNTH), .INTRO(INTRO), .FLICKER(FLICKER)) host
 (
 	.clk(clk_sys),
 	.reset(reset),
@@ -292,6 +316,9 @@ hybrid_host #(.MIDI_SYNTH(MIDI_SYNTH)) host
 	.fast(fast),
 	.f1(f1),
 	.menumask(menumask),
+	.lace(lace),
+	.status_out(status_in),
+	.status_set(status_set),
 
 	.audio_l(AUDIO_L),
 	.audio_r(AUDIO_R),
