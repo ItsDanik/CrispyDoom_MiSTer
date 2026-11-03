@@ -132,11 +132,14 @@ In Heretic, Hexen and Strife the d-pad is for the inventory, and the left stick 
 | D-pad Left / Right | choose an artifact | choose an artifact (`[` / `]`) | choose an item (`[` / `]`) |
 | D-pad Down | use it | use it (Enter) | use it (Enter) |
 | D-pad Up | fly up (with the Wings of Wrath) | fly up (with the Wings of Wrath) | the mission objectives, held (`W`), not in menus and dialogues |
-| A (Xbox B / PlayStation Circle) | fly down (*Run* in the OSD) | fly down (*Run* in the OSD) | run (held) |
+| A (Xbox B / PlayStation Circle) | fly down (the *Run* button: it does not run here) | fly down (the *Run* button: it does not run here) | run (held) |
 | L2 | run (held) | run (held) | run (held) |
 | X (Xbox Y / PlayStation Triangle) | previous weapon | jump (`/`; *Prev Weapon* in the OSD) | jump (`A`; *Prev Weapon* in the OSD) |
 | Y (Xbox X / PlayStation Square) | next weapon | goes round the weapons | goes round the weapons |
 | Keyboard only | | | `K` the keys, `Z` the inventory |
+
+> [!NOTE]
+> All the games share one list of buttons, so the button called *Run* in *Define CrispyDoom buttons* runs in Doom and Strife but **flies down in Heretic and Hexen**. There you run with **L2** alone, whichever button *Run* is on: putting *Run* on another button moves flying down, not running.
 
 Change the buttons in the OSD under *Define CrispyDoom buttons*. *Menu OK* and *Menu Back* there are only needed for a spare button without a game function. While the OSD is open, the game gets no input.
 

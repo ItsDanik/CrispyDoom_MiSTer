@@ -37,6 +37,8 @@ Playing
   Buttons are changed in the OSD under "Define CrispyDoom buttons". A button
   left without a name there does not reach the game at all: name every
   button, or leave the definition as it is.
+  In Heretic and Hexen the button called "Run" there flies down; you run
+  with L2 alone, whichever button "Run" is on.
 
 If something is wrong
   Open the OSD while it happens and pick Save Diagnostic Report, the last
